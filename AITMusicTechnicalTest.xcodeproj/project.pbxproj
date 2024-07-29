@@ -9,19 +9,27 @@
 /* Begin PBXBuildFile section */
 		D5D753582C57411500A9BC14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753572C57411500A9BC14 /* AppDelegate.swift */; };
 		D5D7535A2C57411500A9BC14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753592C57411500A9BC14 /* SceneDelegate.swift */; };
-		D5D7535C2C57411500A9BC14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7535B2C57411500A9BC14 /* ViewController.swift */; };
 		D5D753612C57411700A9BC14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5D753602C57411700A9BC14 /* Assets.xcassets */; };
 		D5D753642C57411700A9BC14 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D5D753632C57411700A9BC14 /* Base */; };
+		D5D753702C57595C00A9BC14 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7536F2C57595C00A9BC14 /* APIService.swift */; };
+		D5D753722C575B9400A9BC14 /* SongModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753712C575B9400A9BC14 /* SongModel.swift */; };
+		D5D753772C576F3700A9BC14 /* CustomSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753762C576F3700A9BC14 /* CustomSongCell.swift */; };
+		D5D753792C5776EC00A9BC14 /* MusicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753782C5776EC00A9BC14 /* MusicViewModel.swift */; };
+		D5D7537B2C579B4C00A9BC14 /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7537A2C579B4C00A9BC14 /* MusicPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D5D753542C57411500A9BC14 /* AITMusicTechnicalTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AITMusicTechnicalTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D753572C57411500A9BC14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D753592C57411500A9BC14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D5D7535B2C57411500A9BC14 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D5D753602C57411700A9BC14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5D753632C57411700A9BC14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D5D753652C57411700A9BC14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5D7536F2C57595C00A9BC14 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		D5D753712C575B9400A9BC14 /* SongModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModel.swift; sourceTree = "<group>"; };
+		D5D753762C576F3700A9BC14 /* CustomSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSongCell.swift; sourceTree = "<group>"; };
+		D5D753782C5776EC00A9BC14 /* MusicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewModel.swift; sourceTree = "<group>"; };
+		D5D7537A2C579B4C00A9BC14 /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,58 @@
 		D5D753562C57411500A9BC14 /* AITMusicTechnicalTest */ = {
 			isa = PBXGroup;
 			children = (
+				D5D753652C57411700A9BC14 /* Info.plist */,
 				D5D753572C57411500A9BC14 /* AppDelegate.swift */,
 				D5D753592C57411500A9BC14 /* SceneDelegate.swift */,
-				D5D7535B2C57411500A9BC14 /* ViewController.swift */,
 				D5D753602C57411700A9BC14 /* Assets.xcassets */,
 				D5D753622C57411700A9BC14 /* LaunchScreen.storyboard */,
-				D5D753652C57411700A9BC14 /* Info.plist */,
+				D5D7536E2C57594700A9BC14 /* APIServices */,
+				D5D753752C576EFD00A9BC14 /* Controllers */,
+				D5D7536B2C5754D700A9BC14 /* Models */,
+				D5D7536C2C5754DE00A9BC14 /* ViewModel */,
+				D5D7536D2C5754EF00A9BC14 /* Views */,
 			);
 			path = AITMusicTechnicalTest;
+			sourceTree = "<group>";
+		};
+		D5D7536B2C5754D700A9BC14 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D5D753712C575B9400A9BC14 /* SongModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D5D7536C2C5754DE00A9BC14 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D5D753782C5776EC00A9BC14 /* MusicViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D5D7536D2C5754EF00A9BC14 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D5D753762C576F3700A9BC14 /* CustomSongCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D5D7536E2C57594700A9BC14 /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+				D5D7536F2C57595C00A9BC14 /* APIService.swift */,
+			);
+			path = APIServices;
+			sourceTree = "<group>";
+		};
+		D5D753752C576EFD00A9BC14 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D5D7537A2C579B4C00A9BC14 /* MusicPlayerViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +186,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5D7535C2C57411500A9BC14 /* ViewController.swift in Sources */,
+				D5D753772C576F3700A9BC14 /* CustomSongCell.swift in Sources */,
+				D5D753792C5776EC00A9BC14 /* MusicViewModel.swift in Sources */,
+				D5D753722C575B9400A9BC14 /* SongModel.swift in Sources */,
+				D5D7537B2C579B4C00A9BC14 /* MusicPlayerViewController.swift in Sources */,
 				D5D753582C57411500A9BC14 /* AppDelegate.swift in Sources */,
+				D5D753702C57595C00A9BC14 /* APIService.swift in Sources */,
 				D5D7535A2C57411500A9BC14 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
