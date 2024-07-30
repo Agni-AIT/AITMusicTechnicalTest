@@ -20,6 +20,7 @@
 		D5D7538D2C587F5700A9BC14 /* APIServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7538C2C587F5700A9BC14 /* APIServiceTests.swift */; };
 		D5D7538F2C58801300A9BC14 /* SongModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D7538E2C58801300A9BC14 /* SongModelTests.swift */; };
 		D5D753912C5881EE00A9BC14 /* CustomSongCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D753902C5881EE00A9BC14 /* CustomSongCellTests.swift */; };
+		D5D753932C58D27C00A9BC14 /* Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png in Resources */ = {isa = PBXBuildFile; fileRef = D5D753922C58D27C00A9BC14 /* Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		D5D7538C2C587F5700A9BC14 /* APIServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceTests.swift; sourceTree = "<group>"; };
 		D5D7538E2C58801300A9BC14 /* SongModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongModelTests.swift; sourceTree = "<group>"; };
 		D5D753902C5881EE00A9BC14 /* CustomSongCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSongCellTests.swift; sourceTree = "<group>"; };
+		D5D753922C58D27C00A9BC14 /* Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png"; path = "../../../Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		D5D753562C57411500A9BC14 /* AITMusicTechnicalTest */ = {
 			isa = PBXGroup;
 			children = (
+				D5D753922C58D27C00A9BC14 /* Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png */,
 				D5D753652C57411700A9BC14 /* Info.plist */,
 				D5D753572C57411500A9BC14 /* AppDelegate.swift */,
 				D5D753592C57411500A9BC14 /* SceneDelegate.swift */,
@@ -238,6 +241,7 @@
 			files = (
 				D5D753612C57411700A9BC14 /* Assets.xcassets in Resources */,
 				D5D753642C57411700A9BC14 /* Base in Resources */,
+				D5D753932C58D27C00A9BC14 /* Dakirby309-Windows-8-Metro-Apps-Windows-Media-Player-alt-Metro.256.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
