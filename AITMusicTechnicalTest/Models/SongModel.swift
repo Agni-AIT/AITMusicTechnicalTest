@@ -9,24 +9,28 @@ import Foundation
 
 struct Song: Identifiable, Equatable {
     let id: Int64
-    let title: String?
-    let artist: String?
-    let previewURL: String?
-    let artworkURL: String?
+    let title: String
+    let artist: String
+    let previewUrl: String
+    let artworkUrl: String
     
     static func == (lhs: Song, rhs: Song) -> Bool {
-        return lhs.id == rhs.id && lhs.title == rhs.title && lhs.artist == rhs.artist && lhs.previewURL == rhs.previewURL && lhs.artworkURL == rhs.artworkURL
+        return lhs.id == rhs.id &&
+               lhs.title == rhs.title &&
+               lhs.artist == rhs.artist &&
+               lhs.previewUrl == rhs.previewUrl &&
+               lhs.artworkUrl == rhs.artworkUrl
     }
 }
 
-struct iTunesSearchResponse: Codable {
-    let results: [iTunesTrack]
+struct ITunesSearchResponse: Codable {
+    let results: [ITunesTrack]
 }
 
-struct iTunesTrack: Codable {
+struct ITunesTrack: Codable {
     let trackId: Int64
-    let trackName: String?
-    let artistName: String?
-    let previewURL: String?
-    let artworkURL100: String?
+    let trackName: String
+    let artistName: String
+    let previewUrl: String
+    let artworkUrl100: String
 }
