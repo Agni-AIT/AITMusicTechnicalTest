@@ -7,6 +7,7 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 protocol MusicViewModelDelegate: AnyObject {
     func viewModelDidUpdateSongs(_ viewModel: MusicViewModel)
@@ -33,15 +34,15 @@ class MusicViewModel {
         }
     }
     
-    private(set) var currentSongIndex: Int? {
-        didSet {
-            delegate?.viewModelDidUpdateCurrentSong(self)
-        }
-    }
-    
     private(set) var isLoading: Bool = false {
         didSet {
             delegate?.viewModelDidUpdateLoadingState(self)
+        }
+    }
+    
+    private(set) var currentSongIndex: Int? {
+        didSet {
+            delegate?.viewModelDidUpdateCurrentSong(self)
         }
     }
     
@@ -79,9 +80,8 @@ class MusicViewModel {
         currentSongIndex = index
         let song = songs[index]
         
-        guard let url = URL(string: song.previewURL ?? "") else {
-            delegate?.viewModelDidEncounterError(self, error: NSError(domain: "Invalid URl", code: 0, userInfo: nil))
-            
+        guard let url = URL(string: song.previewUrl) else {
+            delegate?.viewModelDidEncounterError(self, error: NSError(domain: "Invalid URL", code: 0, userInfo: nil))
             return
         }
         
@@ -92,6 +92,7 @@ class MusicViewModel {
         isPlaying = true
         delegate?.viewModelDidStartPlayingMusic(self)
         
+        // Observe when the song ends
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerDidFinishPlaying),
                                                name: .AVPlayerItemDidPlayToEndTime,
@@ -103,22 +104,25 @@ class MusicViewModel {
     }
     
     func searchSongs(query: String) {
+        // Cancel the previous work item if it hasn't started yet
         searchWorkItem?.cancel()
         
+        // If the query is empty, clear the results immediately
         if query.isEmpty {
             songs = []
             return
         }
         
-        
+        // Create a new work item
         let workItem = DispatchWorkItem { [weak self] in
             self?.performSearch(query: query)
         }
         
-        searchWorkItem  = workItem
+        // Save the new work item and dispatch it after a delay
+        searchWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
     }
-   
+    
     func togglePlayPause() {
         if isPlaying {
             player?.pause()
@@ -128,7 +132,7 @@ class MusicViewModel {
         isPlaying.toggle()
     }
     
-    private func nextSong() {
+    func nextSong() {
         guard let currentIndex = currentSongIndex else { return }
         let nextIndex = (currentIndex + 1) % songs.count
         playSong(at: nextIndex)
@@ -144,12 +148,11 @@ class MusicViewModel {
         playSong(at: index)
     }
     
-    func setSongs(_ newSong: [Song]) {
-        songs = newSong
+    func setSongs(_ newSongs: [Song]) {
+        songs = newSongs
     }
     
     @objc private func playerDidFinishPlaying() {
         nextSong()
     }
-    
 }
