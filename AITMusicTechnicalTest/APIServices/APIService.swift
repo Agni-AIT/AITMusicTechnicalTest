@@ -14,13 +14,14 @@ enum APIError: Error, Equatable {
     
     static func == (lhs: APIError, rhs: APIError) -> Bool {
         switch (lhs, rhs) {
-        case (.invalidURL, invalidURL):
+        case (.invalidURL, .invalidURL):
             return true
         case (.networkError(let lhsError), .networkError(let rhsError)):
             return lhsError.localizedDescription == rhsError.localizedDescription
         case (.decodingError(let lhsError), .decodingError(let rhsError)):
             return lhsError.localizedDescription == rhsError.localizedDescription
-        default: return false
+        default:
+            return false
         }
     }
 }
@@ -57,6 +58,7 @@ class APIService {
         let task = session.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(.networkError(error)))
+                return
             }
             
             guard let data = data else {
@@ -66,14 +68,14 @@ class APIService {
             
             do {
                 let decoder = JSONDecoder()
-                let searchResponse = try decoder.decode(iTunesSearchResponse.self, from: data)
-                let songs = searchResponse.results.map { Song(id: $0.trackId, title: $0.trackName, artist: $0.artistName, previewURL: $0.previewURL, artworkURL: $0.artworkURL100) }
+                let searchResponse = try decoder.decode(ITunesSearchResponse.self, from: data)
+                let songs = searchResponse.results.map { Song(id: $0.trackId, title: $0.trackName, artist: $0.artistName, previewUrl: $0.previewUrl, artworkUrl: $0.artworkUrl100) }
                 completion(.success(songs))
-                
             } catch {
                 completion(.failure(.decodingError(error)))
             }
         }
+        
         task.resume()
     }
 }
