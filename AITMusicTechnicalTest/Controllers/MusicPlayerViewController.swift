@@ -17,6 +17,7 @@ class MusicPlayerViewController: UIViewController {
     private let nextButton = UIButton()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
     private let noResultsLabel = UILabel()
+    private let slider = UISlider()
     
     private let viewModel: MusicViewModel
     
@@ -117,8 +118,8 @@ class MusicPlayerViewController: UIViewController {
     }
     
     private func setupPlayerControls() {
-        [previousButton, playPauseButton, nextButton].forEach {
-            $0.setTitleColor(.black, for: .normal)
+        [previousButton, playPauseButton, nextButton, slider].forEach {
+            //            $0.setTitleColor(.black, for: .normal)
             playerControlsView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -132,15 +133,20 @@ class MusicPlayerViewController: UIViewController {
             playPauseButton.centerYAnchor.constraint(equalTo: playerControlsView.centerYAnchor),
             
             previousButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -50),
-            previousButton.centerYAnchor.constraint(equalTo: playerControlsView.centerYAnchor),
+            previousButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
             
             nextButton.leadingAnchor.constraint(equalTo: playPauseButton.trailingAnchor, constant: 50),
-            nextButton.centerYAnchor.constraint(equalTo: playerControlsView.centerYAnchor)
+            nextButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
+            
+            slider.leadingAnchor.constraint(equalTo: playerControlsView.leadingAnchor, constant: 20),
+            slider.trailingAnchor.constraint(equalTo: playerControlsView.trailingAnchor, constant: -20),
+            slider.bottomAnchor.constraint(equalTo: playerControlsView.bottomAnchor, constant: -10)
         ])
         
         previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
         playPauseButton.addTarget(self, action: #selector(playPauseButtonTapped), for: .touchUpInside)
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
     }
     
     private func setupTapGesture() {
@@ -187,6 +193,14 @@ class MusicPlayerViewController: UIViewController {
     
     @objc private func nextButtonTapped() {
         viewModel.nextSong()
+    }
+    
+    @objc private func sliderValueChanged(_ sender: UISlider) {
+        guard let duration = viewModel.player?.currentItem?.duration else { return }
+        let totalSeconds = CMTimeGetSeconds(duration)
+        let value = Float64(sender.value) * totalSeconds
+        let seekTime = CMTime(value: CMTimeValue(value), timescale: 1)
+        viewModel.player?.seek(to: seekTime)
     }
 }
 
@@ -264,6 +278,12 @@ extension MusicPlayerViewController: MusicViewModelDelegate {
     func viewModelDidUpdateCurrentSong(_ viewModel: MusicViewModel) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+    
+    func viewModelDidUpdatePlayerProgress(_ viewModel: MusicViewModel, currentTime: Double, duration: Double) {
+        DispatchQueue.main.async {
+            self.slider.value = Float(currentTime / duration)
         }
     }
 }

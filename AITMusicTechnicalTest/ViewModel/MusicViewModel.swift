@@ -16,6 +16,7 @@ protocol MusicViewModelDelegate: AnyObject {
     func viewModelDidEncounterError(_ viewModel: MusicViewModel, error: Error)
     func viewModelDidStartPlayingMusic(_ viewModel: MusicViewModel)
     func viewModelDidUpdateCurrentSong(_ viewModel: MusicViewModel)
+    func viewModelDidUpdatePlayerProgress(_ viewModel: MusicViewModel, currentTime: Double, duration: Double)
 }
 
 class MusicViewModel {
@@ -47,13 +48,21 @@ class MusicViewModel {
     }
     
     private var searchWorkItem: DispatchWorkItem?
-    private var player: AVPlayer?
+    var player: AVPlayer?
     private var playerItem: AVPlayerItem?
+    private var timeObserverToken: Any?
     
     private let apiService: APIService
     
     init(apiService: APIService = .shared) {
         self.apiService = apiService
+    }
+    
+    deinit {
+        if let token = timeObserverToken {
+            player?.removeTimeObserver(token)
+            timeObserverToken = nil
+        }
     }
     
     private func performSearch(query: String) {
@@ -97,6 +106,20 @@ class MusicViewModel {
                                                selector: #selector(playerDidFinishPlaying),
                                                name: .AVPlayerItemDidPlayToEndTime,
                                                object: playerItem)
+        
+        addTimeObserver()
+    }
+    
+    private func addTimeObserver() {
+        let interval = CMTime(seconds: 1.0, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        
+        timeObserverToken = player?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            guard let self = self, let currentItem = self.player?.currentItem else { return }
+            
+            let duration = currentItem.duration.seconds
+            let currentTime = time.seconds
+            self.delegate?.viewModelDidUpdatePlayerProgress(self, currentTime: currentTime, duration: duration)
+        }
     }
     
     func isCurrentlyPlaying(index: Int) -> Bool {
