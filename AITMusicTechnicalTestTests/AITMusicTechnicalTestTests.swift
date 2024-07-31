@@ -25,6 +25,9 @@ final class MockDelegate: MusicViewModelDelegate {
     var encounterErrorCalled = false
     var startPlayingMusicCalled = false
     var updateCurrentSongCalled = false
+    var sliderControllerCalled = false
+    var currentTime: Double?
+    var duration: Double?
     
     func viewModelDidUpdateSongs(_ viewModel: MusicViewModel) {
         updateSongsCalled = true
@@ -48,6 +51,12 @@ final class MockDelegate: MusicViewModelDelegate {
     
     func viewModelDidUpdateCurrentSong(_ viewModel: MusicViewModel) {
         updateCurrentSongCalled = true
+    }
+    
+    func viewModelDidUpdatePlayerProgress(_ viewModel: MusicViewModel, currentTime: Double, duration: Double) {
+        sliderControllerCalled = true
+        self.currentTime = currentTime
+        self.duration = duration
     }
 }
 
@@ -151,5 +160,19 @@ final class MusicPlayerViewModelTests: XCTestCase {
         viewModel.togglePlayPause()
         XCTAssertFalse(viewModel.isPlaying)
         XCTAssertTrue(mockDelegate.updatePlayingStateCalled)
+    }
+    
+    func testViewModelDidUpdatePlayerProgress() {
+        let testSong = Song(id: 1, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1")
+        viewModel.setSongs([testSong])
+        viewModel.selectSong(at: 0)
+
+        let currentTime: Double = 30.0
+        let duration: Double = 120.0
+        viewModel.delegate?.viewModelDidUpdatePlayerProgress(viewModel, currentTime: currentTime, duration: duration)
+        
+        XCTAssertTrue(mockDelegate.sliderControllerCalled)
+        XCTAssertEqual(mockDelegate.currentTime, currentTime)
+        XCTAssertEqual(mockDelegate.duration, duration)
     }
 }
