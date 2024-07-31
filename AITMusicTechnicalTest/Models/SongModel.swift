@@ -7,20 +7,12 @@
 
 import Foundation
 
-struct Song: Identifiable, Equatable {
+struct Song: Identifiable {
     let id: Int64
     let title: String
     let artist: String
     let previewUrl: String
     let artworkUrl: String
-    
-    static func == (lhs: Song, rhs: Song) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.title == rhs.title &&
-               lhs.artist == rhs.artist &&
-               lhs.previewUrl == rhs.previewUrl &&
-               lhs.artworkUrl == rhs.artworkUrl
-    }
 }
 
 struct ITunesSearchResponse: Codable {
