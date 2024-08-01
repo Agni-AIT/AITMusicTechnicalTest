@@ -13,6 +13,7 @@ struct Song: Identifiable {
     let artist: String
     let previewUrl: String
     let artworkUrl: String
+    let collectionName: String
 }
 
 struct ITunesSearchResponse: Codable {
@@ -25,4 +26,5 @@ struct ITunesTrack: Codable {
     let artistName: String
     let previewUrl: String
     let artworkUrl100: String
+    let collectionName: String
 }

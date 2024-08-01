@@ -56,7 +56,7 @@ class APIService {
             do {
                 let decoder = JSONDecoder()
                 let searchResponse = try decoder.decode(ITunesSearchResponse.self, from: data)
-                let songs = searchResponse.results.map { Song(id: $0.trackId, title: $0.trackName, artist: $0.artistName, previewUrl: $0.previewUrl, artworkUrl: $0.artworkUrl100) }
+                let songs = searchResponse.results.map { Song(id: $0.trackId, title: $0.trackName, artist: $0.artistName, previewUrl: $0.previewUrl, artworkUrl: $0.artworkUrl100, collectionName: $0.collectionName) }
                 completion(.success(songs))
             } catch {
                 completion(.failure(.decodingError(error)))

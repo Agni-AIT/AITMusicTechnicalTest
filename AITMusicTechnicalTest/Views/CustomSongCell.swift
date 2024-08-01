@@ -65,6 +65,9 @@ class CustomSongCell: UITableViewCell {
             playingIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
         
+        artistLabel.font = .systemFont(ofSize: 12, weight: .thin)
+        albumLabel.font = .systemFont(ofSize: 10, weight: .ultraLight)
+        
         playingIcon.tintColor = .systemGreen
         playingIcon.contentMode = .scaleAspectFit
         
@@ -77,7 +80,7 @@ class CustomSongCell: UITableViewCell {
         titleLabel.text = song.title
         artistLabel.text = song.artist
         playingIcon.image = isPlaying ? UIImage(systemName: "waveform.path") : nil
-        albumLabel.text = "Album Name"
+        albumLabel.text = song.collectionName
         
         if let url = URL(string: song.artworkUrl) {
             DispatchQueue.global().async {
