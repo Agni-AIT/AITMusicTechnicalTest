@@ -118,15 +118,17 @@ class MusicPlayerViewController: UIViewController {
     }
     
     private func setupPlayerControls() {
+        playerControlsView.backgroundColor = UIColor.clear
+        
         [previousButton, playPauseButton, nextButton, slider].forEach {
             //            $0.setTitleColor(.black, for: .normal)
             playerControlsView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        previousButton.setTitle("⏮", for: .normal)
-        playPauseButton.setTitle("▶️", for: .normal)
-        nextButton.setTitle("⏭", for: .normal)
+        previousButton.setImage(UIImage(systemName: "backward.fill"), for: .normal)
+        playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        nextButton.setImage(UIImage(systemName: "forward.fill"), for: .normal)
         
         NSLayoutConstraint.activate([
             playPauseButton.centerXAnchor.constraint(equalTo: playerControlsView.centerXAnchor),
@@ -140,7 +142,8 @@ class MusicPlayerViewController: UIViewController {
             
             slider.leadingAnchor.constraint(equalTo: playerControlsView.leadingAnchor, constant: 20),
             slider.trailingAnchor.constraint(equalTo: playerControlsView.trailingAnchor, constant: -20),
-            slider.bottomAnchor.constraint(equalTo: playerControlsView.bottomAnchor, constant: -10)
+            slider.topAnchor.constraint(equalTo: playPauseButton.bottomAnchor, constant: 20),
+            slider.bottomAnchor.constraint(equalTo: playerControlsView.bottomAnchor, constant: -20)
         ])
         
         previousButton.addTarget(self, action: #selector(previousButtonTapped), for: .touchUpInside)
@@ -246,7 +249,7 @@ extension MusicPlayerViewController: MusicViewModelDelegate {
     
     func viewModelDidUpdatePlayingState(_ viewModel: MusicViewModel) {
         DispatchQueue.main.async {
-            self.playPauseButton.setTitle(viewModel.isPlaying ? "⏸" : "▶️", for: .normal)
+            self.playPauseButton.setImage(viewModel.isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill"), for: .normal)
         }
     }
     

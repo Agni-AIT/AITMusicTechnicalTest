@@ -76,7 +76,7 @@ class CustomSongCell: UITableViewCell {
     func configure(with song: Song, isPlaying: Bool) {
         titleLabel.text = song.title
         artistLabel.text = song.artist
-        playingIcon.image = isPlaying ? UIImage(systemName: "checkmark.circle.fill") : nil
+        playingIcon.image = isPlaying ? UIImage(systemName: "waveform.path") : nil
         albumLabel.text = "Album Name"
         
         if let url = URL(string: song.artworkUrl) {
