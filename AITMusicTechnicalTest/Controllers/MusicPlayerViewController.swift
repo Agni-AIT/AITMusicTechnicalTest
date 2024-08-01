@@ -12,6 +12,8 @@ class MusicPlayerViewController: UIViewController {
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     private let playerControlsView = UIView()
+    private let trackNameLabel = UILabel()
+    private let artistNameLabel = UILabel()
     private let playPauseButton = UIButton()
     private let previousButton = UIButton()
     private let nextButton = UIButton()
@@ -84,7 +86,7 @@ class MusicPlayerViewController: UIViewController {
             playerControlsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerControlsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playerControlsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            playerControlsView.heightAnchor.constraint(equalToConstant: 100),
+            playerControlsView.heightAnchor.constraint(equalToConstant: 150),
             
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -120,8 +122,20 @@ class MusicPlayerViewController: UIViewController {
     private func setupPlayerControls() {
         playerControlsView.backgroundColor = UIColor.clear
         
+        trackNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        trackNameLabel.textAlignment = .center
+        trackNameLabel.textColor = .black
+        trackNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        artistNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        artistNameLabel.textAlignment = .center
+        artistNameLabel.textColor = .gray
+        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        playerControlsView.addSubview(trackNameLabel)
+        playerControlsView.addSubview(artistNameLabel)
+        
         [previousButton, playPauseButton, nextButton, slider].forEach {
-            //            $0.setTitleColor(.black, for: .normal)
             playerControlsView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -131,8 +145,16 @@ class MusicPlayerViewController: UIViewController {
         nextButton.setImage(UIImage(systemName: "forward.fill"), for: .normal)
         
         NSLayoutConstraint.activate([
+            trackNameLabel.topAnchor.constraint(equalTo: playerControlsView.topAnchor, constant: 8),
+            trackNameLabel.leadingAnchor.constraint(equalTo: playerControlsView.leadingAnchor, constant: 16),
+            trackNameLabel.trailingAnchor.constraint(equalTo: playerControlsView.trailingAnchor, constant: -16),
+            
+            artistNameLabel.topAnchor.constraint(equalTo: trackNameLabel.bottomAnchor, constant: 4),
+            artistNameLabel.leadingAnchor.constraint(equalTo: playerControlsView.leadingAnchor, constant: 16),
+            artistNameLabel.trailingAnchor.constraint(equalTo: playerControlsView.trailingAnchor, constant: -16),
+            
             playPauseButton.centerXAnchor.constraint(equalTo: playerControlsView.centerXAnchor),
-            playPauseButton.centerYAnchor.constraint(equalTo: playerControlsView.centerYAnchor),
+            playPauseButton.topAnchor.constraint(equalTo: artistNameLabel.bottomAnchor, constant: 16),
             
             previousButton.trailingAnchor.constraint(equalTo: playPauseButton.leadingAnchor, constant: -50),
             previousButton.centerYAnchor.constraint(equalTo: playPauseButton.centerYAnchor),
@@ -142,7 +164,7 @@ class MusicPlayerViewController: UIViewController {
             
             slider.leadingAnchor.constraint(equalTo: playerControlsView.leadingAnchor, constant: 20),
             slider.trailingAnchor.constraint(equalTo: playerControlsView.trailingAnchor, constant: -20),
-            slider.topAnchor.constraint(equalTo: playPauseButton.bottomAnchor, constant: 20),
+            slider.topAnchor.constraint(equalTo: playPauseButton.bottomAnchor, constant: 8),
             slider.bottomAnchor.constraint(equalTo: playerControlsView.bottomAnchor, constant: -20)
         ])
         
@@ -178,7 +200,7 @@ class MusicPlayerViewController: UIViewController {
             self.tableView.frame = CGRect(x: self.tableView.frame.origin.x,
                                           y: self.tableView.frame.origin.y,
                                           width: self.tableView.frame.width,
-                                          height: self.tableView.frame.height - 100)
+                                          height: self.tableView.frame.height - 150)
         }
     }
     
@@ -275,12 +297,18 @@ extension MusicPlayerViewController: MusicViewModelDelegate {
     func viewModelDidStartPlayingMusic(_ viewModel: MusicViewModel) {
         DispatchQueue.main.async {
             self.showPlayerControls()
+            self.trackNameLabel.text = self.viewModel.songs[self.viewModel.currentSongIndex!].title
+            self.artistNameLabel.text = self.viewModel.songs[self.viewModel.currentSongIndex!].artist
         }
     }
     
     func viewModelDidUpdateCurrentSong(_ viewModel: MusicViewModel) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            if let currentSongIndex = self.viewModel.currentSongIndex {
+                self.trackNameLabel.text = self.viewModel.songs[currentSongIndex].title
+                self.artistNameLabel.text = self.viewModel.songs[currentSongIndex].artist
+            }
         }
     }
     
