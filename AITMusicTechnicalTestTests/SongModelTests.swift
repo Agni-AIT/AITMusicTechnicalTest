@@ -11,7 +11,7 @@ import XCTest
 final class SongModelTests: XCTestCase {
 
     func testSongInitialization() {
-        let song = Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork")
+        let song = Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork", collectionName: "Test Collection")
         
         XCTAssertEqual(song.id, 123)
         XCTAssertEqual(song.title, "Test Song")

@@ -76,7 +76,7 @@ final class MusicPlayerViewModelTests: XCTestCase {
     func testSearchSongsSuccess() {
         let expectation = self.expectation(description: "Search songs")
         
-        let testSongs = [Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork")]
+        let testSongs = [Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork", collectionName: "Test Collection")]
         mockAPIService.searchSongsResult = .success(testSongs)
         
         viewModel.searchSongs(query: "test")
@@ -93,8 +93,8 @@ final class MusicPlayerViewModelTests: XCTestCase {
     
     func testSelectSong() {
         let testSongs = [
-            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1"),
-            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2")
+            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1", collectionName: "Collection Name 1"),
+            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2", collectionName: "Collection Name 2")
         ]
         viewModel.setSongs(testSongs)
         
@@ -108,8 +108,8 @@ final class MusicPlayerViewModelTests: XCTestCase {
     
     func testNextSong() {
         let testSongs = [
-            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1"),
-            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2")
+            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1", collectionName: "Collection Name 1"),
+            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2", collectionName: "Collection Name 2")
         ]
         viewModel.setSongs(testSongs)
         viewModel.selectSong(at: 0)
@@ -123,8 +123,8 @@ final class MusicPlayerViewModelTests: XCTestCase {
     
     func testPreviousSong() {
         let testSongs = [
-            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1"),
-            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2")
+            Song(id: 1, title: "Song 1", artist: "Artist 1", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1", collectionName: "Collection Name 1"),
+            Song(id: 2, title: "Song 2", artist: "Artist 2", previewUrl: "https://example.com/2", artworkUrl: "https://example.com/art2", collectionName: "Collection Name 2")
         ]
         viewModel.setSongs(testSongs)
         viewModel.selectSong(at: 1)
@@ -163,7 +163,7 @@ final class MusicPlayerViewModelTests: XCTestCase {
     }
     
     func testViewModelDidUpdatePlayerProgress() {
-        let testSong = Song(id: 1, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1")
+        let testSong = Song(id: 1, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/1", artworkUrl: "https://example.com/art1", collectionName: "Test Collection")
         viewModel.setSongs([testSong])
         viewModel.selectSong(at: 0)
 

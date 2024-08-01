@@ -51,11 +51,12 @@ final class APIServiceTests: XCTestCase {
             "resultCount": 1,
             "results": [
                 {
-                    "trackId": 1557247316,
-                    "trackName": "Khoda",
-                    "artistName": "Chepang",
-                    "previewUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/b6/82/d9/b682d9e4-5cb1-2f88-9d9e-6fef8bc2ccb5/mzaf_12964581893657811346.plus.aac.p.m4a",
-                    "artworkUrl100": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/92/1c/9d/921c9d68-7755-8b65-a473-e43f6ca425c7/source/100x100bb.jpg"
+                    "trackId": 120954025,
+                    "trackName": "Upside Down",
+                    "artistName": "Jack Johnson",
+                    "collectionName": "Sing-a-Longs and Lullabies for the Film Curious George",
+                    "previewUrl": "http://a1099.itunes.apple.com/r10/Music/f9/54/43/mzi.gqvqlvcq.aac.p.m4p",
+                    "artworkUrl100": "http://a1.itunes.apple.com/r10/Music/3b/6a/33/mzi.qzdqwsel.100x100-75.jpg"
                 }
             ]
         }
@@ -67,11 +68,12 @@ final class APIServiceTests: XCTestCase {
             switch result {
             case .success(let songs):
                 XCTAssertEqual(songs.count, 1)
-                XCTAssertEqual(songs[0].id, 1557247316)
-                XCTAssertEqual(songs[0].title, "Khoda")
-                XCTAssertEqual(songs[0].artist, "Chepang")
-                XCTAssertEqual(songs[0].previewUrl, "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview114/v4/b6/82/d9/b682d9e4-5cb1-2f88-9d9e-6fef8bc2ccb5/mzaf_12964581893657811346.plus.aac.p.m4a")
-                XCTAssertEqual(songs[0].artworkUrl, "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/92/1c/9d/921c9d68-7755-8b65-a473-e43f6ca425c7/source/100x100bb.jpg")
+                XCTAssertEqual(songs[0].id, 120954025)
+                XCTAssertEqual(songs[0].title, "Upside Down")
+                XCTAssertEqual(songs[0].artist, "Jack Johnson")
+                XCTAssertEqual(songs[0].collectionName, "Sing-a-Longs and Lullabies for the Film Curious George")
+                XCTAssertEqual(songs[0].previewUrl, "http://a1099.itunes.apple.com/r10/Music/f9/54/43/mzi.gqvqlvcq.aac.p.m4p")
+                XCTAssertEqual(songs[0].artworkUrl, "http://a1.itunes.apple.com/r10/Music/3b/6a/33/mzi.qzdqwsel.100x100-75.jpg")
             case .failure(let error):
                 XCTFail("Expected success, but got failure: \(error)")
             }

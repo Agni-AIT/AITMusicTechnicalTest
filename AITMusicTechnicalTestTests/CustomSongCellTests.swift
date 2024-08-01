@@ -17,7 +17,7 @@ final class CustomSongCellTests: XCTestCase {
     }
     
     func testCellConfiguration() {
-        let song = Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork")
+        let song = Song(id: 123, title: "Test Song", artist: "Test Artist", previewUrl: "https://example.com/preview", artworkUrl: "https://example.com/artwork", collectionName: "Test Collection")
         
         cell.configure(with: song, isPlaying: false)
         
