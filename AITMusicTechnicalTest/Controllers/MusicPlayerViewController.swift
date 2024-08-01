@@ -41,6 +41,11 @@ class MusicPlayerViewController: UIViewController {
         title = "AIT Music Player"
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: viewModel.isPlaying ? 150 : 0, right: 0)
+    }
+    
     private func setupUI() {
         view.backgroundColor = .white
         
@@ -81,7 +86,7 @@ class MusicPlayerViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: playerControlsView.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.bottomAnchor),
             
             playerControlsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerControlsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -120,7 +125,8 @@ class MusicPlayerViewController: UIViewController {
     }
     
     private func setupPlayerControls() {
-        playerControlsView.backgroundColor = UIColor.clear
+        playerControlsView.backgroundColor = UIColor.white
+        playerControlsView.layer.opacity = 0.8
         
         trackNameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         trackNameLabel.textAlignment = .center
