@@ -54,6 +54,8 @@ class MusicViewModel {
     
     private let apiService: APIService
     
+    private var debounceTimer: Timer?
+    
     init(apiService: APIService = .shared) {
         self.apiService = apiService
     }
@@ -127,23 +129,28 @@ class MusicViewModel {
     }
     
     func searchSongs(query: String) {
-        // Cancel the previous work item if it hasn't started yet
-        searchWorkItem?.cancel()
+        debounceTimer?.invalidate()
         
-        // If the query is empty, clear the results immediately
-        if query.isEmpty {
-            songs = []
-            return
-        }
+        debounceTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false, block: { _ in
+            // Cancel the previous work item if it hasn't started yet
+            self.searchWorkItem?.cancel()
+            
+            // If the query is empty, clear the results immediately
+            if query.isEmpty {
+                self.songs = []
+                return
+            }
+            
+            // Create a new work item
+            let workItem = DispatchWorkItem { [weak self] in
+                self?.performSearch(query: query)
+            }
+            
+            // Save the new work item and dispatch it after a delay
+            self.searchWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now(), execute: workItem)
+        })
         
-        // Create a new work item
-        let workItem = DispatchWorkItem { [weak self] in
-            self?.performSearch(query: query)
-        }
-        
-        // Save the new work item and dispatch it after a delay
-        searchWorkItem = workItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
     }
     
     func togglePlayPause() {
